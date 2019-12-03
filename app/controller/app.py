@@ -1,21 +1,19 @@
 from flask import Flask, render_template, redirect, url_for, request, abort
+import os
 
 
-app = Flask(__name__)
+template_dir = os.path.abspath('../view/templates')
+app = Flask(__name__, template_folder=template_dir)
 
 key = ""
 
 # _______Endpoints_______ #
 
 
-@app.route('/main', methods = ['POST', 'GET'])
+@app.route('/main', methods=['POST', 'GET'])
 def main_screen():
-    if request.form['mode'] == 'spanish':
-        return redirect(url_for('spanish_categories'))
-    elif request.form['mode'] == 'medical':
-        return redirect(url_for('show_modes'))
-    else:
-        abort(406)
+    return render_template("main.html")
+
 
 @app.route('/modes')
 def show_modes():
